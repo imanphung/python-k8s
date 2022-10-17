@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: flask-demo
-        image: flask-demo:latest
+        image: antphungit/flask-demo
       ports:
         resources:
           requests:
