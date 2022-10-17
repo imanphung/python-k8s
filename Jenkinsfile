@@ -7,7 +7,9 @@ pipeline {
         dockerImage = ""
     }
 
-    agent any
+    agent {
+        docker { image 'python:3' }
+    }
 
     stages {
         stage('Checkout Source') {
@@ -18,6 +20,7 @@ pipeline {
     
         stage('Build & Test') {
             steps {
+                sh 'pip --version'
                 sh 'pip install -r requirements.txt'
                 script {
                     dockerImage = docker.build dockerimagename
