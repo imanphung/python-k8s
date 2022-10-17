@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-demo-k8s
+  name: flask-demo
+  namespace: python-demo
 spec:
   selector:
     app: flask-demo
@@ -16,11 +17,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flask-demo
+  namespace: python-demo
 spec:
   selector:
     matchLabels:
       app: flask-demo
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:
@@ -29,6 +31,14 @@ spec:
       containers:
       - name: flask-demo
         image: flask-demo:latest
-        imagePullPolicy: Never
+      ports:
+        resources:
+          requests:
+            memory: '512Mi'
+            cpu: '500m'
+          limits:
+            memory: '512Mi'
+            cpu: '500m'
         ports:
-        - containerPort: 8080
+          - name: http
+            containerPort: 8080
