@@ -22,6 +22,7 @@ pipeline {
             steps {
                 sh 'pip --version'
                 sh 'pip install -r requirements.txt'
+                sh 'python test_app.py'
                 script {
                     dockerImage = docker.build dockerimagename
                 }
